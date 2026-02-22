@@ -512,6 +512,15 @@ body {
   border-left: 5px solid var(--brown);
 }
 
+.interview-who {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--brown);
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #f0d5b0;
+}
+
 .interview-block {
   display: flex;
   flex-direction: column;
