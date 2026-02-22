@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>푸딩이를 기억하며 🐹</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 별 배경 -->
+  <div class="stars" id="stars"></div>
+
+  <!-- 히어로 섹션 -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="insa-video-wrap" id="insaWrap">
+        <video class="insa-video" id="insaVideo" playsinline>
+          <source src="assets/puding_insa.mp4" type="video/mp4"/>
+        </video>
+        <button class="insa-play-btn" id="insaPlayBtn" aria-label="영상 재생">
+          <span class="play-icon">▶</span>
+          <span class="play-text">푸딩이 인사 보기 🐹</span>
+        </button>
+        <div class="insa-glow"></div>
+      </div>
+      <div class="hamster-illustration">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="hamster-svg">
+          <!-- 몸통 -->
+          <ellipse cx="100" cy="130" rx="55" ry="45" fill="#c8956c"/>
+          <!-- 배 -->
+          <ellipse cx="100" cy="140" rx="35" ry="30" fill="#f0d5b0"/>
+          <!-- 머리 -->
+          <circle cx="100" cy="85" r="42" fill="#c8956c"/>
+          <!-- 볼 (햄스터 특징!) -->
+          <ellipse cx="68" cy="95" rx="20" ry="16" fill="#e8b090"/>
+          <ellipse cx="132" cy="95" rx="20" ry="16" fill="#e8b090"/>
+          <!-- 귀 -->
+          <circle cx="70" cy="50" r="16" fill="#c8956c"/>
+          <circle cx="130" cy="50" r="16" fill="#c8956c"/>
+          <circle cx="70" cy="50" r="10" fill="#e8a0a0"/>
+          <circle cx="130" cy="50" r="10" fill="#e8a0a0"/>
+          <!-- 눈 -->
+          <circle cx="86" cy="82" r="7" fill="#2a1a0e"/>
+          <circle cx="114" cy="82" r="7" fill="#2a1a0e"/>
+          <circle cx="88" cy="80" r="2.5" fill="white"/>
+          <circle cx="116" cy="80" r="2.5" fill="white"/>
+          <!-- 코 -->
+          <ellipse cx="100" cy="96" rx="5" ry="3.5" fill="#d4607a"/>
+          <!-- 입 -->
+          <path d="M94 101 Q100 107 106 101" stroke="#a0404a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <!-- 수염 -->
+          <line x1="60" y1="94" x2="78" y2="97" stroke="#8a6a50" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="58" y1="100" x2="77" y2="100" stroke="#8a6a50" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="122" y1="97" x2="140" y2="94" stroke="#8a6a50" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="123" y1="100" x2="142" y2="100" stroke="#8a6a50" stroke-width="1.2" stroke-linecap="round"/>
+          <!-- 앞발 -->
+          <ellipse cx="72" cy="162" rx="14" ry="10" fill="#c8956c"/>
+          <ellipse cx="128" cy="162" rx="14" ry="10" fill="#c8956c"/>
+          <!-- 꼬리 -->
+          <ellipse cx="152" cy="138" rx="8" ry="6" fill="#e8b090"/>
+          <!-- 해바라기씨 -->
+          <ellipse cx="100" cy="155" rx="8" ry="11" fill="#4a3a1a" transform="rotate(-10 100 155)"/>
+          <ellipse cx="100" cy="155" rx="5" ry="8" fill="#6a5a2a" transform="rotate(-10 100 155)"/>
+        </svg>
+        <div class="sparkles">
+          <span class="sparkle">✨</span>
+          <span class="sparkle">⭐</span>
+          <span class="sparkle">✨</span>
+        </div>
+      </div>
+    </div>
+      <h1 class="title">푸딩이를 기억하며</h1>
+      <p class="subtitle">2024.12.28 — 2025.03.24</p>
+      <p class="tagline">짧은 만남이었지만 널 기억할게 🌟</p>
+    </div>
+    <div class="scroll-hint">↓</div>
+  </section>
+
+  <!-- 프로필 섹션 -->
+  <section class="profile-section">
+    <div class="container">
+      <h2 class="section-title">🐹 푸딩이 소개</h2>
+      <div class="profile-card">
+        <div class="profile-photo">
+          <img src="assets/puding.png" alt="푸딩이" />
+          <div class="photo-badge">애니메이션 ver.</div>
+        </div>
+        <div class="profile-info">
+          <div class="info-row"><span class="label">이름</span><span class="value">푸딩 🍮</span></div>
+          <div class="info-row"><span class="label">종류</span><span class="value">드워프 햄스터</span></div>
+          <div class="info-row"><span class="label">성별</span><span class="value">여자 🎀</span></div>
+          <div class="info-row"><span class="label">생일</span><span class="value">2024년 12월 28일</span></div>
+          <div class="info-row"><span class="label">별이 된 날</span><span class="value">2025년 3월 24일 ⭐</span></div>
+          <div class="info-row"><span class="label">함께한 시간</span><span class="value">86일</span></div>
+          <div class="info-row"><span class="label">좋아한 것</span><span class="value">해바라기씨 🌻</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 성격 섹션 -->
+  <section class="personality-section">
+    <div class="container">
+      <h2 class="section-title">💛 푸딩이는 이런 아이였어</h2>
+      <div class="personality-cards">
+        <div class="p-card">
+          <div class="p-icon">🏠</div>
+          <p>베딩 안에 숨는 걸 좋아했어</p>
+        </div>
+        <div class="p-card">
+          <div class="p-icon">🤲</div>
+          <p>순해서 쓰다듬거나 손으로 잡아도 가만히 있어줬어</p>
+        </div>
+        <div class="p-card">
+          <div class="p-icon">🌻</div>
+          <p>해바라기씨를 제일 좋아했어</p>
+        </div>
+        <div class="p-card">
+          <div class="p-icon">👨‍👩‍👧</div>
+          <p>친척 모임에 데려갔더니 할머니랑 아이들이 엄청 귀여워했어</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 사진 갤러리 -->
+  <section class="gallery-section">
+    <div class="container">
+      <h2 class="section-title">📸 푸딩이의 순간들</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="assets/20241230_212558.jpg" alt="푸딩이" loading="lazy"/></div>
+        <div class="gallery-item"><img src="assets/20250105_195155.jpg" alt="푸딩이" loading="lazy"/></div>
+        <div class="gallery-item"><img src="assets/20250105_195156.jpg" alt="푸딩이" loading="lazy"/></div>
+        <div class="gallery-item"><img src="assets/20250105_200022.jpg" alt="푸딩이" loading="lazy"/></div>
+        <div class="gallery-item"><img src="assets/20250108_192344.jpg" alt="푸딩이" loading="lazy"/></div>
+        <div class="gallery-item video-item">
+          <video controls playsinline poster="assets/puding.png">
+            <source src="assets/20250202_181452.mp4" type="video/mp4"/>
+          </video>
+          <div class="video-badge">🎬 영상</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 서현이의 사진첩 섹션 -->
+  <section class="picbook-section">
+    <div class="container">
+      <h2 class="section-title">📒 서현이의 푸딩이 사진첩</h2>
+      <p class="picbook-desc">서현이가 직접 만든 푸딩이 사진첩이에요 🎨</p>
+      <div class="picbook-masonry">
+        <div class="picbook-item"><img src="assets/picture_book/20260222_171029.jpg" alt="푸딩이 사진첩 1" loading="lazy"/></div>
+        <div class="picbook-item"><img src="assets/picture_book/171054_left.jpg" alt="푸딩이 사진첩 2" loading="lazy"/></div>
+        <div class="picbook-item"><img src="assets/picture_book/171054_right.jpg" alt="푸딩이 사진첩 3" loading="lazy"/></div>
+        <div class="picbook-item"><img src="assets/picture_book/171104_left.jpg" alt="푸딩이 사진첩 4" loading="lazy"/></div>
+        <div class="picbook-item"><img src="assets/picture_book/171104_right.jpg" alt="푸딩이 사진첩 5" loading="lazy"/></div>
+        <div class="picbook-item"><img src="assets/picture_book/171111_left.jpg" alt="푸딩이 사진첩 6" loading="lazy"/></div>
+        <div class="picbook-item"><img src="assets/picture_book/171111_right.jpg" alt="푸딩이 사진첩 7" loading="lazy"/></div>
+        <div class="picbook-item"><img src="assets/picture_book/20260222_171119.jpg" alt="푸딩이 사진첩 8" loading="lazy"/></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 엄마 인터뷰 섹션 -->
+  <section class="interview-section">
+    <div class="container">
+      <h2 class="section-title">🎙️ 혀니 엄마가 기억하는 푸딩이</h2>
+      <div class="interview-card">
+        <div class="interview-block">
+          <div class="interview-label">💬 느낀 점</div>
+          <p class="interview-text">착하고 순한 아이였는데, 처음 키우다 보니 좋은 사료도 못 챙겨주고 많이 쓰다듬어 주지도 못했어. 이렇게 빨리 떠날 줄은 몰랐는데... 눈빛이 정말 너무 순했어.</p>
+        </div>
+        <div class="interview-divider"></div>
+        <div class="interview-block">
+          <div class="interview-label">📖 가장 기억에 남는 날</div>
+          <p class="interview-text">마지막 날이 제일 기억에 남아. 평소엔 낮에 잘 안 나오던 아이였는데, 그날은 오전부터 나와서 물그릇, 쳇바퀴, 구석구석을 천천히 돌아다니더라고. 마치 자기 집을 하나하나 기억하려는 것처럼. 아파하는 모습을 보면서 정말 가슴이 찢어지는 것 같았어.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 편지 섹션 -->
+  <section class="letter-section">
+    <div class="container">
+      <h2 class="section-title">💌 푸딩이에게</h2>
+      <div class="letter-card">
+        <div class="letter-decoration">🌸</div>
+        <p class="letter-text">
+          푸딩아,<br/><br/>
+          짧은 만남이었지만 널 기억할게.<br/>
+          베딩 속에 쏙 숨던 모습,<br/>
+          손 위에서 가만히 있어주던 따뜻함,<br/>
+          해바라기씨 먹던 귀여운 모습...<br/><br/>
+          우리 모두 널 사랑했어. 🌟<br/><br/>
+          별나라에서 해바라기씨 실컷 먹어 🌻<br/><br/>
+          그럼 바이바이 🐹
+        </p>
+        <div class="letter-decoration">🌸</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <div class="footer-hamster">🐹</div>
+    <p>푸딩이 2024.12.28 — 2025.03.24</p>
+    <p class="footer-sub">별이 된 우리 푸딩이를 영원히 기억해</p>
+  </footer>
+
+  <!-- 배경음악 -->
+  <audio id="bgm" loop>
+    <source src="assets/bgm2.mp3" type="audio/mpeg"/>
+  </audio>
+  <button class="bgm-btn" id="bgmBtn" aria-label="배경음악 켜기/끄기">
+    <span id="bgmIcon">🔇</span>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
