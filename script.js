@@ -89,20 +89,44 @@ initScrollAnimation();
 initLightbox();
 
 // 배경음악
-const bgm = document.getElementById('bgm');
 const bgmBtn = document.getElementById('bgmBtn');
 const bgmIcon = document.getElementById('bgmIcon');
 let bgmPlaying = false;
 
-function startBgm() {
-  bgm.volume = 0.35;
-  bgm.play().then(() => {
-    bgmPlaying = true;
-    bgmIcon.textContent = '🎵';
-  }).catch(() => {});
+const bgmPlaylist = [
+  'assets/bgm/Echoes_in_the_Linen.mp3',
+  'assets/bgm/My_Little_Star.mp3',
+  'assets/bgm/Echoes_of_the_Willow_Tree.mp3',
+  'assets/bgm/Hamster_s_Farewell_Overture.mp3'
+];
+const bgmLoop = 'assets/bgm/bgm2.mp3';
+
+const bgm = new Audio();
+bgm.volume = 0.35;
+let bgmIndex = 0;
+
+function playNext() {
+  if (bgmIndex < bgmPlaylist.length) {
+    bgm.src = bgmPlaylist[bgmIndex++];
+    bgm.loop = false;
+    bgm.play().catch(() => {});
+  } else {
+    bgm.src = bgmLoop;
+    bgm.loop = true;
+    bgm.play().catch(() => {});
+  }
 }
 
-// 첫 인터랙션 자동시작 제거 — 영상 끝난 후 bgm 시작
+bgm.addEventListener('ended', () => {
+  if (!bgm.loop) playNext();
+});
+
+function startBgm() {
+  bgmIndex = 0;
+  playNext();
+  bgmPlaying = true;
+  bgmIcon.textContent = '🎵';
+}
 
 // 수동 토글
 bgmBtn.addEventListener('click', (e) => {
@@ -111,7 +135,6 @@ bgmBtn.addEventListener('click', (e) => {
     bgm.pause();
     bgmIcon.textContent = '🔇';
   } else {
-    bgm.volume = 0.35;
     bgm.play().catch(() => {});
     bgmIcon.textContent = '🎵';
   }
@@ -124,24 +147,78 @@ if (insaPlayBtn && insaVideo) {
   insaPlayBtn.addEventListener('click', () => {
     insaPlayBtn.style.display = 'none';
     insaVideo.play();
+    // 클릭 시 pop 애니메이션
+    const wrap = document.getElementById('insaWrap');
+    wrap.classList.remove('pop');
+    void wrap.offsetWidth; // reflow
+    wrap.classList.add('pop');
+    wrap.addEventListener('animationend', () => wrap.classList.remove('pop'), { once: true });
   });
 
   insaVideo.addEventListener('ended', () => {
     insaPlayBtn.style.display = 'flex';
     startBgm();
-    // 천천히 아래로 자동 스크롤
+
+    // 멈출 구간: 인터뷰 섹션, 편지 섹션
+    const pauseSelectors = ['.interview-section', '.letter-section'];
+    const pauseDuration = 5000; // 5초
+    let pausePoints = [];
+    let pausedSet = new Set();
+    let isPaused = false;
+    let rafId = null;
+
+    function buildPausePoints() {
+      pausePoints = pauseSelectors.map(sel => {
+        const el = document.querySelector(sel);
+        return el ? el.getBoundingClientRect().top + window.scrollY : null;
+      }).filter(Boolean);
+    }
+    buildPausePoints();
+
+    function resumeScroll(fromY) {
+      isPaused = false;
+      const startTime = performance.now();
+      const totalHeight = document.body.scrollHeight - window.innerHeight;
+
+      function step(now) {
+        if (isPaused) return;
+        const elapsed = now - startTime;
+        const remaining = totalHeight - fromY;
+        const progress = Math.min(elapsed / (remaining * 20), 1);
+        const ease = -(Math.cos(Math.PI * progress) - 1) / 2;
+        window.scrollTo(0, fromY + remaining * ease);
+        if (progress < 1) rafId = requestAnimationFrame(step);
+      }
+      rafId = requestAnimationFrame(step);
+    }
+
+    function checkPause(currentY) {
+      for (const point of pausePoints) {
+        if (!pausedSet.has(point) && currentY >= point - window.innerHeight * 0.3) {
+          pausedSet.add(point);
+          isPaused = true;
+          cancelAnimationFrame(rafId);
+          setTimeout(() => resumeScroll(window.scrollY), pauseDuration);
+          return true;
+        }
+      }
+      return false;
+    }
+
+    const totalHeight = document.body.scrollHeight - window.innerHeight;
     const startY = window.scrollY;
     const startTime = performance.now();
 
     function smoothScroll(now) {
-      const totalHeight = document.body.scrollHeight - window.innerHeight;
-      const duration = (totalHeight - window.scrollY) * 6;
+      if (isPaused) return;
       const elapsed = now - startTime;
-      const progress = Math.min(elapsed / ((totalHeight - startY) * 10), 1);
+      const progress = Math.min(elapsed / ((totalHeight - startY) * 20), 1);
       const ease = -(Math.cos(Math.PI * progress) - 1) / 2;
-      window.scrollTo(0, startY + (totalHeight - startY) * ease);
-      if (progress < 1) requestAnimationFrame(smoothScroll);
+      const nextY = startY + (totalHeight - startY) * ease;
+      window.scrollTo(0, nextY);
+      if (checkPause(nextY)) return;
+      if (progress < 1) rafId = requestAnimationFrame(smoothScroll);
     }
-    requestAnimationFrame(smoothScroll);
+    rafId = requestAnimationFrame(smoothScroll);
   });
 }
