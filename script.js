@@ -88,6 +88,23 @@ createStars();
 initScrollAnimation();
 initLightbox();
 
+// 갤러리 동영상 화면 진입 시 자동재생
+function initVideoAutoplay() {
+  const videos = document.querySelectorAll('.gallery-item video');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.play().catch(() => {});
+      } else {
+        entry.target.pause();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  videos.forEach(v => observer.observe(v));
+}
+initVideoAutoplay();
+
 // 배경음악
 const bgmBtn = document.getElementById('bgmBtn');
 const bgmIcon = document.getElementById('bgmIcon');
@@ -96,8 +113,6 @@ let bgmPlaying = false;
 const bgmPlaylist = [
   'assets/bgm/Echoes_in_the_Linen.mp3',
   'assets/bgm/My_Little_Star.mp3',
-  'assets/bgm/Echoes_of_the_Willow_Tree.mp3',
-  'assets/bgm/Hamster_s_Farewell_Overture.mp3'
 ];
 const bgmLoop = 'assets/bgm/bgm2.mp3';
 
@@ -160,17 +175,19 @@ if (insaPlayBtn && insaVideo) {
     startBgm();
 
     // 멈출 구간: 인터뷰 섹션, 편지 섹션
-    const pauseSelectors = ['.interview-section', '.letter-section'];
-    const pauseDuration = 5000; // 5초
+    const pauseConfig = [
+      { sel: '.interview-section', duration: 27000 },
+      { sel: '.letter-section',    duration: 20000 },
+    ];
     let pausePoints = [];
     let pausedSet = new Set();
     let isPaused = false;
     let rafId = null;
 
     function buildPausePoints() {
-      pausePoints = pauseSelectors.map(sel => {
+      pausePoints = pauseConfig.map(({ sel, duration }) => {
         const el = document.querySelector(sel);
-        return el ? el.getBoundingClientRect().top + window.scrollY : null;
+        return el ? { y: el.getBoundingClientRect().top + window.scrollY, sel, duration } : null;
       }).filter(Boolean);
     }
     buildPausePoints();
@@ -179,14 +196,17 @@ if (insaPlayBtn && insaVideo) {
       isPaused = false;
       const startTime = performance.now();
       const totalHeight = document.body.scrollHeight - window.innerHeight;
+      const remaining = totalHeight - fromY;
 
       function step(now) {
         if (isPaused) return;
         const elapsed = now - startTime;
-        const remaining = totalHeight - fromY;
-        const progress = Math.min(elapsed / (remaining * 20), 1);
+        const duration = Math.max(remaining * 20, 3000);
+        const progress = Math.min(elapsed / duration, 1);
         const ease = -(Math.cos(Math.PI * progress) - 1) / 2;
-        window.scrollTo(0, fromY + remaining * ease);
+        const nextY = fromY + remaining * ease;
+        window.scrollTo(0, nextY);
+        if (checkPause(nextY)) return;
         if (progress < 1) rafId = requestAnimationFrame(step);
       }
       rafId = requestAnimationFrame(step);
@@ -194,11 +214,25 @@ if (insaPlayBtn && insaVideo) {
 
     function checkPause(currentY) {
       for (const point of pausePoints) {
-        if (!pausedSet.has(point) && currentY >= point - window.innerHeight * 0.3) {
-          pausedSet.add(point);
+        // 섹션 상단이 화면 상단에 닿을 때 멈춤 (scrollY >= 섹션 top)
+        if (!pausedSet.has(point.y) && currentY >= point.y - 10) {
+          pausedSet.add(point.y);
           isPaused = true;
           cancelAnimationFrame(rafId);
-          setTimeout(() => resumeScroll(window.scrollY), pauseDuration);
+          // 인터뷰 섹션 진입 시 음악 교체
+          if (point.sel === '.interview-section') {
+            bgm.src = 'assets/bgm/mommy.mp3';
+            bgm.loop = false;
+            bgm.play().catch(() => {});
+          }
+          // 편지 섹션 진입 시 음악 교체
+          if (point.sel === '.letter-section') {
+            bgm.src = 'assets/bgm/Hamster_s_Farewell_Overture.mp3';
+            bgm.loop = false;
+            bgm.play().catch(() => {});
+          }
+          const waitDuration = point.duration;
+          setTimeout(() => resumeScroll(window.scrollY), waitDuration);
           return true;
         }
       }
@@ -217,7 +251,9 @@ if (insaPlayBtn && insaVideo) {
       const nextY = startY + (totalHeight - startY) * ease;
       window.scrollTo(0, nextY);
       if (checkPause(nextY)) return;
-      if (progress < 1) rafId = requestAnimationFrame(smoothScroll);
+      if (progress < 1) {
+        rafId = requestAnimationFrame(smoothScroll);
+      }
     }
     rafId = requestAnimationFrame(smoothScroll);
   });

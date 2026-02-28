@@ -585,14 +585,127 @@ body {
 
 /* 반응형 */
 @media (max-width: 600px) {
+  .hero {
+    padding: 1.5rem 1rem;
+  }
+
+  .insa-video-wrap {
+    width: 180px;
+    height: 180px;
+  }
+
+  .hamster-illustration {
+    width: 140px;
+    height: 140px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+  }
+
+  .profile-section,
+  .personality-section,
+  .gallery-section,
+  .picbook-section,
+  .interview-section,
+  .letter-section {
+    padding: 3rem 0;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
   .profile-card {
     flex-direction: column;
     align-items: center;
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
   }
+
+  .profile-photo img {
+    width: 160px;
+    height: 160px;
+  }
+
+  .profile-info {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .label {
+    font-size: 0.9rem;
+    min-width: 80px;
+  }
+
+  .value {
+    font-size: 1rem;
+  }
+
+  .personality-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
+  }
+
+  .p-card {
+    padding: 1.2rem 1rem;
+  }
+
+  .p-icon {
+    font-size: 2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .p-card p {
+    font-size: 0.9rem;
+  }
+
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
   }
+
+  .picbook-masonry {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.7rem;
+  }
+
+  .interview-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .interview-text {
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+
   .letter-card {
-    padding: 2rem 1.5rem;
+    padding: 1.8rem 1.2rem;
+  }
+
+  .letter-text {
+    font-size: 1.05rem;
+    line-height: 2;
+  }
+
+  .bgm-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+    bottom: 1rem;
+    right: 1rem;
   }
 }
