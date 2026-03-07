@@ -72,6 +72,12 @@ body {
   width: 220px;
   height: 220px;
   margin-bottom: 0.5rem;
+  transition: width 0.5s ease, height 0.5s ease;
+}
+
+.insa-video-wrap.playing {
+  width: 440px;
+  height: 440px;
 }
 
 .insa-video {
@@ -594,6 +600,11 @@ body {
     height: 180px;
   }
 
+  .insa-video-wrap.playing {
+    width: 340px;
+    height: 340px;
+  }
+
   .hamster-illustration {
     width: 140px;
     height: 140px;
@@ -708,4 +719,136 @@ body {
     bottom: 1rem;
     right: 1rem;
   }
+}
+
+/* 플로팅 메뉴 */
+.float-menu {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.float-menu-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: rgba(13,10,26,0.8);
+  backdrop-filter: blur(8px);
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.float-menu-toggle:hover {
+  border-color: var(--brown);
+  transform: scale(1.08);
+}
+
+.float-menu-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  background: rgba(13,10,26,0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 1rem;
+  min-width: 200px;
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+}
+
+.float-menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.6rem;
+}
+
+.float-menu-label {
+  font-size: 0.75rem;
+  color: var(--brown);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 0.2rem;
+}
+
+.float-menu-item {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.8);
+  font-family: 'Gowun Dodum', sans-serif;
+  font-size: 0.9rem;
+  text-align: left;
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.float-menu-item:hover {
+  background: rgba(200,149,108,0.2);
+  color: white;
+}
+
+.float-menu-item.active {
+  background: rgba(200,149,108,0.3);
+  color: var(--star-gold);
+}
+
+.now-playing {
+  font-size: 0.78rem;
+  color: var(--star-gold);
+  text-align: center;
+  padding-top: 0.4rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  min-height: 1.2em;
+  word-break: break-all;
+}
+
+@media (max-width: 600px) {
+  .float-menu {
+    top: 0.8rem;
+    right: 0.8rem;
+  }
+  .float-menu-panel {
+    min-width: 170px;
+    font-size: 0.85rem;
+  }
+}
+
+/* 전역 스크롤바 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(200, 149, 108, 0.45);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(200, 149, 108, 0.75);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200, 149, 108, 0.45) transparent;
 }
